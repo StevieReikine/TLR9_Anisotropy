@@ -3,10 +3,17 @@ from scipy.optimize import fsolve, curve_fit
 import random as rdm
 import numpy as np
 
-
 X1 = [x*0.1 for x in range(1, 10)]
 X2 = list(range(1,101))
 X = X1 + X2
+
+
+data = np.loadtxt("mTLR9_1668_dataonly.txt")
+#print(data)
+data_x = data[:,0]
+data_y = data[:,1]
+#print(data_x, len(data_x), data_y, len(data_y))
+
 
 def MyFuntion(X, K1, K4):
     SolutionFound = False
@@ -47,14 +54,19 @@ def MyFuntion(X, K1, K4):
     return(Y)
 
 K1 = 7
-K4 = 400
+K4 = 40
 D0 = 5
 
-Y = MyFuntion(X, K1, K4)
-print(len(X), len(Y))
+Y = MyFuntion(data_x, K1, K4)
 
-plt.scatter(X,Y)
+plt.plot(np.log10(data_x), data_y, 'b-', label= 'data')
+
+popt, pcov = curve_fit(MyFuntion, data_x, data_y, p0 = [7.0, 50.0])
+print(popt)
+
+plt.plot(np.log10(data_x), Y, 'r-', label= 'fit')
 plt.show()
 
+Y = MyFuntion(data_x, popt[0], popt[1])
 
-np.savetxt('Kd-test-K1-K4_b.csv', (X, Y), delimiter=',')
+np.savetxt('Kd-test-K1-K4_fitted_e.csv', (data_x, Y), delimiter=',')
