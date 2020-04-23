@@ -20,4 +20,4 @@ Some useful links to futher understand the technique:
 [A nice example of how to apply this technique](https://www.bmglabtech.com/high-throughput-protein-dna-measurement-using-fluorescence-anisotropy/)
 
 ### Equilibrium Binding Model
-![img/0test.png](img/0test.png)
+![EquilibriumModel.png](EquilibriumModel.png)
